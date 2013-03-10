@@ -8,7 +8,7 @@
 goog.require('webkitjs.ViewController');
 
 // provide
-goog.provide('webkitjs.ModalView');
+goog.provide('webkitjs.ModalViewController');
 
 /**
  * A Modal View.
@@ -19,7 +19,7 @@ goog.provide('webkitjs.ModalView');
  * @param {webkitjs.Component=} comp
  * @param {string=} state
  */
-webkitjs.ModalView = function(comp, state) {
+webkitjs.ModalViewController = function(comp, state) {
 
 	this.callSuper(webkitjs.ViewController);
 
@@ -42,21 +42,21 @@ webkitjs.ModalView = function(comp, state) {
 	if (state)
 		this.handleState(state);
 };
-webkitjs.ModalView.prototype = new webkitjs.ViewController;
-webkitjs.extend(webkitjs.ModalView, webkitjs.ViewController);
+webkitjs.ModalViewController.prototype = new webkitjs.ViewController;
+webkitjs.extend(webkitjs.ModalViewController, webkitjs.ViewController);
 
 /**
  * The z index to use for modals
  * 
  * @type {number}
  */
-webkitjs.ModalView.lastZ_ = 1000;
+webkitjs.ModalViewController.lastZ_ = 1000;
 
 /**
  * 
  * @param {webkitjs.Component} comp
  */
-webkitjs.ModalView.prototype.addContent = function(comp) {
+webkitjs.ModalViewController.prototype.addContent = function(comp) {
 
 	this.window_.add(comp);
 };
@@ -66,7 +66,7 @@ webkitjs.ModalView.prototype.addContent = function(comp) {
  * 
  * @param {string} sState
  */
-webkitjs.ModalView.prototype.handleState = function(sState) {
+webkitjs.ModalViewController.prototype.handleState = function(sState) {
 
 	var oThis = this;
 	this.getStateController().register('OPEN', function() {
@@ -85,11 +85,11 @@ webkitjs.ModalView.prototype.handleState = function(sState) {
  * override show/hide on them
  * 
  */
-webkitjs.ModalView.prototype.show = function() {
+webkitjs.ModalViewController.prototype.show = function() {
 
 	for ( var c in this.data_) {
 		this.data_[c].component.getElement().css({
-			zIndex : webkitjs.ModalView.lastZ_++
+			zIndex : webkitjs.ModalViewController.lastZ_++
 		});
 	}
 	webkitjs.ViewController.prototype.show.call(this);
