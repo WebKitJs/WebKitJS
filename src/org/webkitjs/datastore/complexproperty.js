@@ -117,7 +117,7 @@ webkitjs.ComplexProperty.prototype.initValuesCache = function() {
 		if (parts[i].indexOf(':') !== -1)
 			s = parts[i];
 		else
-			s = localpath + parts[i];
+			s = this.localPath_ + parts[i];
 		val = mgr.getStore().getField(s).get();
 		this.cache_[s] = this.format(val);
 	}

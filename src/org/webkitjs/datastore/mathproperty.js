@@ -93,7 +93,7 @@ webkitjs.MathProperty.prototype.get = function() {
 			if (parts[i].indexOf(':') !== -1)
 				s = parts[i];
 			else
-				s = localpath + parts[i];
+				s = this.localPath_ + parts[i];
 			arg[i] = mgr.getStore().getField(s).get();
 		}
 		return this.math_(arg[0], arg[1], arg[2], arg[3], arg[4], arg[5],
