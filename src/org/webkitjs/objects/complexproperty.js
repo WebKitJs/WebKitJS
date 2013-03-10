@@ -11,23 +11,27 @@ goog.require('webkitjs.DataStoreManager');
 goog.provide('webkitjs.ComplexProperty');
 
 /**
- * The base ComplexProperty class. This class overrides default functionality 
- * to allow special treatment of values and formulas
+ * The Complex Property class. This class overrides default functionality to
+ * allow special treatment of values and formulas
+ * 
+ * *NOTE* Extend this class to implement your own logic
  * 
  * @event beforechange
  * @event change
  * 
  * @param {string=} val Optional initial value
  * @param {string=} name Optional name
- * @param {webkitjs.DataStore=}	parent	Optional parent for event propagation
+ * @param {webkitjs.DataStore=} parent Optional parent for event propagation
  * 
  * @constructor
  * @extends {webkitjs.BindingProperty}
  */
 webkitjs.ComplexProperty = function(val, name, parent) {
+
 	this.callSuper(webkitjs.BindingProperty, val, name, parent);
-	
+
 	this.addListener('change', function(e) {
+
 		this.updateValuesCache(e.binding);
 	}, this);
 	return this;
@@ -52,7 +56,8 @@ webkitjs.ComplexProperty.prototype.arguments_ = [];
 /**
  * Set up.
  * 
- * @param {*} o	The content of the tag used to create this instance (in DataStore class)
+ * @param {*} o The content of the tag used to create this instance (in
+ *            DataStore class)
  * @override
  */
 webkitjs.ComplexProperty.prototype.setUp = function(o) {
@@ -61,10 +66,11 @@ webkitjs.ComplexProperty.prototype.setUp = function(o) {
 
 	var mgr = webkitjs.DataStoreManager.getInstance();
 	var path = this.getGlobalPath();
+	var localpath = this.localPath_ = path.slice(0, path.lastIndexOf(":")+1);
 	var l = parts.length;
-	for ( var i = 0; i < l; i++) {
+	for ( var i = 0; i < l; i++ ) {
 
-		var propPath = 'P:' + parts[i];
+		var propPath = localpath + parts[i];
 		mgr.addBinding(propPath, path);
 	}
 };
@@ -72,13 +78,11 @@ webkitjs.ComplexProperty.prototype.setUp = function(o) {
 /**
  * Set value. Dispatches a <code>change</code> event
  * 
- * @param {*}
- *            val The value to set
- * @param {string=}
- *            origin Optional path of the setter
+ * @param {*} val The value to set
+ * @param {string=} origin Optional path of the setter
  */
 webkitjs.ComplexProperty.prototype.set = function(val, origin) {
-	
+
 };
 
 /**
@@ -87,35 +91,36 @@ webkitjs.ComplexProperty.prototype.set = function(val, origin) {
  * @returns {*}
  */
 webkitjs.ComplexProperty.prototype.get = function() {
-	
+
 };
 
 /**
  * Cache value dependencies
  */
-webkitjs.ComplexProperty.prototype.initValuesCache = function () {
+webkitjs.ComplexProperty.prototype.initValuesCache = function() {
+
 	this.cache_ = {};
 	var parts = this.arguments_;
 	var mgr = webkitjs.DataStoreManager.getInstance();
 	var l = parts.length;
 	var propPath;
 	var val;
-	for ( var i = 0; i < l; i++) {
-		propPath = 'P:' + parts[i];
+	for ( var i = 0; i < l; i++ ) {
+		propPath = this.localPath_ + parts[i];
 		val = mgr.getStore().getField(propPath).get();
 		this.cache_[propPath] = this.format(val);
 	}
 };
 
-webkitjs.ComplexProperty.prototype.format = function (val){
+webkitjs.ComplexProperty.prototype.format = function(val) {
 
 	if (val) {
 		if (isNaN(parseFloat(val))) {
-			if (typeof val == 'string') {
-				if (val.indexOf('true') != -1) {
+			if ( typeof val == 'string') {
+				if (val.indexOf('true') != - 1) {
 					return true;
 				}
-				else if (val.indexOf('false') != -1) {
+				else if (val.indexOf('false') != - 1) {
 					return false;
 				}
 			}
@@ -129,11 +134,12 @@ webkitjs.ComplexProperty.prototype.format = function (val){
 
 /**
  * Update any value that triggered a change event
+ * 
  * @param {string} origin
  */
 webkitjs.ComplexProperty.prototype.updateValuesCache = function(origin) {
 
-	if (!this.cache_)
+	if ( ! this.cache_)
 		this.initValuesCache();
 
 	if (origin) {
@@ -145,7 +151,7 @@ webkitjs.ComplexProperty.prototype.updateValuesCache = function(origin) {
 			return;
 
 		// cache the updated value
-		this.cache_[origin] = this.format(mgr.getStore().getField(origin).get());
+		this.cache_[origin] = this
+		        .format(mgr.getStore().getField(origin).get());
 	}
 };
-
