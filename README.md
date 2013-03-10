@@ -1,4 +1,4 @@
-Objects
+WebKitJs Objects
 =======
 
-MVC framework combining jQuery with Closure Library 
+A JavaScript MVC framework combining jQuery with Closure Library 
