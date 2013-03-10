@@ -58,8 +58,13 @@ webkitjs.MathProperty.prototype.setUp = function(o) {
 	var localpath = this.localPath_ = path.slice(0, path.lastIndexOf(":")+1);
 	var l = parts.length;
 	var s;
+	// if parameter contains ':', assume it's a global path, otherwise
+	// assume it's local
 	for ( var i = 0; i < l; i++) {
-		s = localpath + parts[i];
+		if (parts[i].indexOf(':') !== -1)
+			s = parts[i];
+		else
+			s = localpath + parts[i];
 		mgr.addBinding(s, path);
 	}
 
@@ -82,8 +87,13 @@ webkitjs.MathProperty.prototype.get = function() {
 		var arg = [];
 		var l = parts.length;
 		var s;
+		// if parameter contains ':', assume it's a global path, otherwise
+		// assume it's local
 		for ( var i = 0; i < l; i++) {
-			s = this.localPath_ + parts[i];
+			if (parts[i].indexOf(':') !== -1)
+				s = parts[i];
+			else
+				s = localpath + parts[i];
 			arg[i] = mgr.getStore().getField(s).get();
 		}
 		return this.math_(arg[0], arg[1], arg[2], arg[3], arg[4], arg[5],

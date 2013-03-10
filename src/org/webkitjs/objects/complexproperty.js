@@ -68,10 +68,16 @@ webkitjs.ComplexProperty.prototype.setUp = function(o) {
 	var path = this.getGlobalPath();
 	var localpath = this.localPath_ = path.slice(0, path.lastIndexOf(":")+1);
 	var l = parts.length;
-	for ( var i = 0; i < l; i++ ) {
+	var s;
+	// if parameter contains ':', assume it's a global path, otherwise
+	// assume it's local
+	for ( var i = 0; i < l; i++) {
+		if (parts[i].indexOf(':') !== -1)
+			s = parts[i];
+		else
+			s = localpath + parts[i];
 
-		var propPath = localpath + parts[i];
-		mgr.addBinding(propPath, path);
+		mgr.addBinding(s, path);
 	}
 };
 
@@ -103,12 +109,17 @@ webkitjs.ComplexProperty.prototype.initValuesCache = function() {
 	var parts = this.arguments_;
 	var mgr = webkitjs.DataStoreManager.getInstance();
 	var l = parts.length;
-	var propPath;
 	var val;
-	for ( var i = 0; i < l; i++ ) {
-		propPath = this.localPath_ + parts[i];
-		val = mgr.getStore().getField(propPath).get();
-		this.cache_[propPath] = this.format(val);
+	var s;
+	// if parameter contains ':', assume it's a global path, otherwise
+	// assume it's local
+	for ( var i = 0; i < l; i++) {
+		if (parts[i].indexOf(':') !== -1)
+			s = parts[i];
+		else
+			s = localpath + parts[i];
+		val = mgr.getStore().getField(s).get();
+		this.cache_[s] = this.format(val);
 	}
 };
 
