@@ -1,8 +1,15 @@
+///////////////////////////////////////////////////////////////////////////////
+// WebkitJs Objects - Copyright (c) 2013 Niclas Norgren - niclas@n3g.net
+// Released under the MIT license.
+// http://opensource.org/licenses/MIT
+///////////////////////////////////////////////////////////////////////////////
+
 // requires
 goog.require('webkitjs.EventTarget');
 goog.require('webkitjs.Component');
 // provide
 goog.provide('webkitjs.Application');
+
 
 /**
  * The Application singleton. 

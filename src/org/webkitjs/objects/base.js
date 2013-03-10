@@ -1,13 +1,19 @@
+///////////////////////////////////////////////////////////////////////////////
+// WebkitJs Objects - Copyright (c) 2013 Niclas Norgren - niclas@n3g.net
+// Released under the MIT license.
+// http://opensource.org/licenses/MIT
+///////////////////////////////////////////////////////////////////////////////
+
+
 // provides
 goog.provide('webkitjs.dom');
 goog.provide('webkitjs.dom.event');
 goog.provide('webkitjs.extend');
 
-/*
- * WebkitJs - An OOP framework for use as a base in projects
- * 
+/* 
+ * WebkitJs Objects
  * The main browser abstraction is done using jQuery
- * Code in general is tailored to work with the Google Closure Compiler
+ * Code is tailored to work with the Google Closure Compiler
  * 
  * Conventions, Patterns, Tools etc:
  * MVC				- http://en.wikipedia.org/wiki/Model-view-controller
