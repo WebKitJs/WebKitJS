@@ -1,14 +1,11 @@
 WebKitJs
 ========
 
-A JavaScript MVC framework combining jQuery with Closure Library
-
-An object oriented framework that uses jQuery for DOM abstraction and Closure Compiler 
+An object oriented JavaScript framework that uses jQuery for DOM abstraction and Closure Compiler 
 for code minification. Components and widgets are created using HTML templates 
 (using jQuery, HTML, CSS)
 
-Base API  	- base components, templates, event system
-Coding conventions	- OOP, MVC, JS PseudoClassical inheritance
+Coding conventions	- OOP, MVC, Observer Pattern, JS PseudoClassical inheritance
 
 
 Dependencies
