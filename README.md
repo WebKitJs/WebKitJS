@@ -5,7 +5,7 @@ An object oriented JavaScript framework that uses jQuery for DOM abstraction and
 for code minification. Components and widgets are created using HTML templates 
 (using jQuery, HTML, CSS)
 
-Coding conventions	- OOP, MVC, Observer Pattern, JS PseudoClassical inheritance
+Conventions: OOP, MVC, Observer Pattern, JS Pseudo-Classical inheritance
 
 
 Dependencies
