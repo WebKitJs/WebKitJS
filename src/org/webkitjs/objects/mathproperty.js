@@ -11,14 +11,10 @@ goog.require('webkitjs.DataStoreManager');
 goog.provide('webkitjs.MathProperty');
 
 /**
- * The base MathProperty class. This class takes a val in the form 
- * [ P101,P103, P103+P101 ] with a maximum of 21 values
- * the last one is treated as an expression based on the others that is to be
- * returned. The current implementation matches names in the main store like:
- * data:[parameter name] container.
- * 
- * [ P101,P103, P103+P101 ] would return the sum of {data:P103} and {data:P101}
- * 
+ * The base MathProperty class. This class takes a value in the form 
+ * [ name1,name2, name1+name2 ] with a maximum of 21 values
+ * The last one is treated as an expression based on the others that is to be
+ * returned.
  * 
  * @event beforechange
  * @event change
@@ -62,14 +58,8 @@ webkitjs.MathProperty.prototype.setUp = function(o) {
 	var localpath = this.localPath_ = path.slice(0, path.lastIndexOf(":")+1);
 	var l = parts.length;
 	var s;
-	
-	// If parameter strats with 'P', assume it's in the 'P' store
-	// otherwise, default to being at the same path as this property
 	for ( var i = 0; i < l; i++) {
-		if (parts[i].indexOf('P') == 0)
-			s = 'P:' + parts[i];
-		else
-			s = localpath + parts[i];
+		s = localpath + parts[i];
 		mgr.addBinding(s, path);
 	}
 
@@ -92,15 +82,8 @@ webkitjs.MathProperty.prototype.get = function() {
 		var arg = [];
 		var l = parts.length;
 		var s;
-		
-		// If parameter starts with 'P', assume it's in the 'P' store
-		// otherwise, default to being at the same path as this property
 		for ( var i = 0; i < l; i++) {
-			if (parts[i].indexOf('P') == 0)
-				s = 'P:' + parts[i];
-			else
-				s = this.localPath_ + parts[i];
-			
+			s = this.localPath_ + parts[i];
 			arg[i] = mgr.getStore().getField(s).get();
 		}
 		return this.math_(arg[0], arg[1], arg[2], arg[3], arg[4], arg[5],
